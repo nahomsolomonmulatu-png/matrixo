@@ -161,6 +161,10 @@
   transform: scale(1.035);
 }
 
+.project:hover .dash-travel {
+  animation-duration: 0.7s;
+}
+
 .project:hover .project__index {
   color: var(--accent);
 }

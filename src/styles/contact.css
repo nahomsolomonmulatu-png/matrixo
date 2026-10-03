@@ -40,6 +40,13 @@
   color: var(--on-dark-muted);
 }
 
+.cta__phone a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  transition: color var(--dur-fast) var(--ease);
+}
+
 .cta__phone a:hover {
   color: var(--accent-on-dark);
 }
@@ -122,8 +129,12 @@
 }
 
 .contact__phones a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .contact__phones a:hover {
@@ -170,7 +181,7 @@
   min-height: 48px;
   padding: 12px 14px;
   background: var(--paper-raised);
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--field-line);
   border-radius: 0;
   font-size: var(--fs-sm);
   transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
@@ -226,7 +237,7 @@
 .footer {
   background: var(--charcoal);
   color: var(--on-dark);
-  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(2.5rem, 4.5vw, 4rem);
   padding-bottom: var(--s-6);
 }
 
@@ -269,6 +280,9 @@
 }
 
 .footer__col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font-size: var(--fs-sm);
   color: var(--on-dark-muted);
   transition: color var(--dur-fast) var(--ease);
@@ -319,6 +333,10 @@
 @media (max-width: 719px) {
   .contact {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field__input {
+    font-size: 16px;
   }
 
   .contact__form,

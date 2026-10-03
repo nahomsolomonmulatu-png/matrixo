@@ -107,7 +107,12 @@
   letter-spacing: 0.005em;
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+    border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn__arrow {
@@ -156,10 +161,16 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 32px;
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--accent);
   padding-block: 6px;
+  transition: color var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+.arrow-link:hover {
+  color: var(--accent-strong);
 }
 
 .arrow-link svg {

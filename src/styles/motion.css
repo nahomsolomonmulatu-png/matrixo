@@ -4,9 +4,11 @@
    or show system state. Nothing floats, bounces or loops for decoration.
    ========================================================================== */
 
-/* Scroll reveal ------------------------------------------------------- */
+/* Scroll reveal -------------------------------------------------------
+   Hidden states only apply when JS is available to reveal them
+   (index.html adds the `js` class), so content is never stuck invisible. */
 
-.reveal {
+.js .reveal {
   opacity: 0;
   transform: translate3d(0, var(--reveal-shift), 0);
   transition: opacity var(--reveal-dur) var(--ease) var(--reveal-delay, 0ms),
@@ -14,9 +16,10 @@
   will-change: opacity, transform;
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
 
 /* Masked text reveal (headline lines) --------------------------------- */
@@ -28,22 +31,28 @@
 
 .reveal-mask > span {
   display: block;
+}
+
+.js .reveal-mask > span {
   transform: translate3d(0, 105%, 0);
   transition: transform 0.9s var(--ease) var(--reveal-delay, 0ms);
 }
 
-.reveal-mask.is-visible > span {
+.js .reveal-mask.is-visible > span {
   transform: none;
 }
 
 /* Media mask (project visuals) ---------------------------------------- */
 
 .reveal-media {
-  clip-path: inset(0 0 100% 0);
   transition: clip-path 1s var(--ease) var(--reveal-delay, 0ms);
 }
 
-.reveal-media.is-visible {
+.js .reveal-media {
+  clip-path: inset(0 0 100% 0);
+}
+
+.js .reveal-media.is-visible {
   clip-path: inset(0 0 0 0);
 }
 
@@ -64,18 +73,7 @@
   animation: page-in 0.5s var(--ease) both;
 }
 
-/* Architecture diagram ------------------------------------------------ */
-
-.arch__line {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.6s var(--ease) var(--reveal-delay, 0ms);
-}
-
-.is-visible .arch__line,
-.arch.is-visible .arch__line {
-  transform: scaleY(1);
-}
+/* Architecture diagram pulse ------------------------------------------ */
 
 @keyframes arch-pulse {
   0%,
@@ -162,17 +160,17 @@
     transition-delay: 0ms !important;
   }
 
-  .reveal,
-  .reveal-mask > span {
+  .js .reveal,
+  .js .reveal-mask > span {
     opacity: 1;
     transform: none;
   }
 
-  .reveal-media {
+  .js .reveal-media {
     clip-path: none;
   }
 
-  .arch__line {
+  .js .arch__line {
     transform: none;
   }
 }

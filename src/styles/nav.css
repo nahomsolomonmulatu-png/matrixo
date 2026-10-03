@@ -23,6 +23,11 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.nav__brand:hover {
+  opacity: 0.7;
 }
 
 .nav__wordmark {
@@ -119,6 +124,16 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
+  transition: border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.nav__toggle:hover {
+  border-color: var(--ink);
+}
+
+.nav__toggle:active {
+  background: var(--paper-raised);
 }
 
 .nav__bars {
@@ -162,7 +177,7 @@
   inset: var(--nav-h) 0 0;
   z-index: 99;
   background: var(--paper);
-  padding: var(--s-5) 0 var(--s-7);
+  padding: var(--s-5) 0 calc(var(--s-7) + env(safe-area-inset-bottom));
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
@@ -203,10 +218,16 @@
 .nav__menu.is-open .nav__menu-links li:nth-child(3) a { transition-delay: 160ms; }
 .nav__menu.is-open .nav__menu-links li:nth-child(4) a { transition-delay: 210ms; }
 .nav__menu.is-open .nav__menu-links li:nth-child(5) a { transition-delay: 260ms; }
+.nav__menu.is-open .nav__menu-links li:nth-child(6) a { transition-delay: 310ms; }
 
 .nav__menu-links a span {
   font-size: 1rem;
   color: var(--muted);
+  transition: transform var(--dur) var(--ease);
+}
+
+.nav__menu-links a:hover span {
+  transform: translate(4px, 4px);
 }
 
 .nav__menu-links a.is-contact {

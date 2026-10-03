@@ -16,8 +16,8 @@
   /* Ink */
   --ink: #14150f;
   --ink-2: #3a3c35;
-  --muted: #6b6d64;
-  --faint: #8d8f85;
+  --muted: #5d5f57;
+  --faint: #6b6d64;
 
   /* Hairlines */
   --line: #dcd7cb;
@@ -31,7 +31,8 @@
   /* Inverted surfaces */
   --on-dark: #f0eee7;
   --on-dark-muted: #9b9d94;
-  --on-dark-faint: #75776f;
+  --on-dark-faint: #7d7f77;
+  --field-line: #83857b;
   --line-dark: rgba(240, 238, 231, 0.16);
   --line-dark-strong: rgba(240, 238, 231, 0.3);
   --accent-on-dark: #5ed489;

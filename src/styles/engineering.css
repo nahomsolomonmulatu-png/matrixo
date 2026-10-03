@@ -69,10 +69,13 @@
   grid-template-columns: 32px minmax(0, 1fr);
   gap: var(--s-4);
   min-height: 74px;
-  opacity: 0;
-  transform: translateY(14px);
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
   transition-delay: calc(var(--i) * 110ms);
+}
+
+.js .arch__row {
+  opacity: 0;
+  transform: translateY(14px);
 }
 
 .arch.is-visible .arch__row {
@@ -112,10 +115,13 @@
   left: 50%;
   width: 1px;
   background: var(--line-dark-strong);
-  transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.5s var(--ease);
   transition-delay: calc(var(--i) * 110ms + 160ms);
+}
+
+.js .arch__line {
+  transform: scaleY(0);
 }
 
 .arch.is-visible .arch__line {

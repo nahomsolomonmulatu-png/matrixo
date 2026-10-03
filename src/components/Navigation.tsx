@@ -40,11 +40,16 @@ export default function Navigation({ route }: { route: string }) {
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
+    const bg = Array.from(
+      document.querySelectorAll<HTMLElement>('main, footer, .skip-link'),
+    )
+    bg.forEach((el) => el.setAttribute('inert', ''))
     const first = menuRef.current?.querySelector<HTMLElement>('a')
     first?.focus()
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      bg.forEach((el) => el.removeAttribute('inert'))
     }
   }, [open])
 
@@ -64,7 +69,7 @@ export default function Navigation({ route }: { route: string }) {
               key={item.href}
               href={item.href}
               className={`nav__link${activeId === item.href.slice(1) ? ' is-active' : ''}`}
-              aria-current={activeId === item.href.slice(1) ? 'true' : undefined}
+              aria-current={activeId === item.href.slice(1) ? 'location' : undefined}
             >
               {item.label}
             </a>

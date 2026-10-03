@@ -109,9 +109,13 @@
 }
 
 .company__phones a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
   letter-spacing: 0.02em;
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .company__phones a:hover {
@@ -140,6 +144,11 @@
 .prod__index {
   color: var(--faint);
   padding-top: 6px;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.prod:hover .prod__index {
+  color: var(--accent);
 }
 
 .prod__head {

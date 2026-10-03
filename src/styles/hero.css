@@ -218,13 +218,18 @@ path.sys__edge--live {
 @media (max-width: 719px) {
   .hero {
     min-height: 0;
-    gap: var(--s-6);
-    padding-top: calc(var(--nav-h) + 1.5rem);
+    gap: var(--s-4);
+    padding-top: calc(var(--nav-h) + 1rem);
     padding-bottom: var(--s-5);
   }
 
   .hero__grid {
     grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-5);
+  }
+
+  .sys__field {
+    aspect-ratio: 2 / 1;
   }
 
   .hero__copy,
