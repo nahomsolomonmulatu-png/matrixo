@@ -1,39 +1,26 @@
-import { useEffect, useState } from 'react'
-import Nav from './components/Nav'
+import { useEffect } from 'react'
+import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import Proof from './components/Proof'
-import Services from './components/Services'
-import Work from './components/Work'
-import Process from './components/Process'
-import About from './components/About'
-import Fit from './components/Fit'
-import { choices } from './choices'
-import Cta from './components/Cta'
-import Contact from './components/Contact'
+import SelectedWork from './components/SelectedWork'
+import Products from './components/Products'
+import Capabilities from './components/Capabilities'
+import Engineering from './components/Engineering'
+import Principles from './components/Principles'
+import Company from './components/Company'
+import TechnologyIndex from './components/TechnologyIndex'
+import Insights from './components/Insights'
+import ContactCTA from './components/ContactCTA'
+import ContactPage from './components/ContactPage'
 import Footer from './components/Footer'
+import { useHashRoute } from './router'
 
-export default function App() {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() =>
-    localStorage.getItem('matrixo-theme') === 'light' ? 'light' : 'dark',
-  )
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [choiceIndex, setChoiceIndex] = useState(0)
-  const [projectType, setProjectType] = useState(choices[0].type)
+const REVEAL_SELECTOR = '.reveal, .reveal-mask, .reveal-media'
 
+function useReveals(route: string) {
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    localStorage.setItem('matrixo-theme', theme)
-  }, [theme])
-
-  useEffect(() => {
-    document.body.classList.toggle('mobileOpen', menuOpen)
-    return () => document.body.classList.remove('mobileOpen')
-  }, [menuOpen])
-
-  useEffect(() => {
-    const els = [...document.querySelectorAll<HTMLElement>('.reveal')]
+    const els = [...document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR)]
     const show = (el: HTMLElement) => {
-      el.classList.add('show')
+      el.classList.add('is-visible')
       io.unobserve(el)
     }
     const io = new IntersectionObserver(
@@ -41,7 +28,7 @@ export default function App() {
         entries.forEach((e) => {
           if (e.isIntersecting) show(e.target as HTMLElement)
         }),
-      { threshold: 0.08 },
+      { threshold: 0.08, rootMargin: '0px 0px -6% 0px' },
     )
     els.forEach((el) => io.observe(el))
 
@@ -50,8 +37,8 @@ export default function App() {
     const sweep = () => {
       raf = 0
       els.forEach((el) => {
-        if (el.classList.contains('show')) return
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.92) show(el)
+        if (el.classList.contains('is-visible')) return
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) show(el)
       })
     }
     const onScroll = () => {
@@ -65,38 +52,50 @@ export default function App() {
       window.removeEventListener('scroll', onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [route])
+}
 
-  const choose = (index: number) => {
-    setChoiceIndex(index)
-    setProjectType(choices[index].type)
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-  }
+export default function App() {
+  const route = useHashRoute()
+
+  useReveals(route)
+
+  // Route change: reset scroll position to the top of the page.
+  useEffect(() => {
+    if (route === '/') {
+      if (window.location.hash === '#/' || window.location.hash === '') {
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      }
+      return
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [route])
+
+  const isHome = route === '/'
 
   return (
     <>
-      <a className="skip" href="#top">
+      <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="glow" aria-hidden="true" />
-      <div className="glow two" aria-hidden="true" />
-      <Nav
-        theme={theme}
-        onToggleTheme={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-        menuOpen={menuOpen}
-        onToggleMenu={() => setMenuOpen((o) => !o)}
-        onCloseMenu={() => setMenuOpen(false)}
-      />
-      <main id="top">
-        <Hero />
-        <Proof />
-        <Services />
-        <Work />
-        <Process />
-        <About />
-        <Fit active={choiceIndex} onChoose={choose} />
-        <Cta />
-        <Contact type={projectType} onTypeChange={setProjectType} />
+      <Navigation route={route} />
+      <main id="main" className={isHome ? undefined : 'page'} key={route}>
+        {isHome ? (
+          <>
+            <Hero />
+            <SelectedWork />
+            <Products />
+            <Capabilities />
+            <Engineering />
+            <Principles />
+            <Company />
+            <TechnologyIndex />
+            <Insights />
+            <ContactCTA />
+          </>
+        ) : (
+          <ContactPage />
+        )}
       </main>
       <Footer />
     </>

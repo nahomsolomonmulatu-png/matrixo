@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nahomsolomonmulatu-png.github.io/matrixo/sitemap.xml

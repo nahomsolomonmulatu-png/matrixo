@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Motion — reveals, page transitions, diagram animation
+   Every effect has a reason: introduce structure, confirm interaction,
+   or show system state. Nothing floats, bounces or loops for decoration.
+   ========================================================================== */
+
+/* Scroll reveal ------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-shift), 0);
+  transition: opacity var(--reveal-dur) var(--ease) var(--reveal-delay, 0ms),
+    transform var(--reveal-dur) var(--ease) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Masked text reveal (headline lines) --------------------------------- */
+
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-mask > span {
+  display: block;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 0.9s var(--ease) var(--reveal-delay, 0ms);
+}
+
+.reveal-mask.is-visible > span {
+  transform: none;
+}
+
+/* Media mask (project visuals) ---------------------------------------- */
+
+.reveal-media {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1s var(--ease) var(--reveal-delay, 0ms);
+}
+
+.reveal-media.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Page transition between routes -------------------------------------- */
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page {
+  animation: page-in 0.5s var(--ease) both;
+}
+
+/* Architecture diagram ------------------------------------------------ */
+
+.arch__line {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s var(--ease) var(--reveal-delay, 0ms);
+}
+
+.is-visible .arch__line,
+.arch.is-visible .arch__line {
+  transform: scaleY(1);
+}
+
+@keyframes arch-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.arch__node--pulse {
+  animation: arch-pulse 2.6s var(--ease-standard) infinite;
+  animation-delay: var(--pulse-delay, 0ms);
+}
+
+/* Status indicator (system panel) ------------------------------------- */
+
+@keyframes status-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.status-dot {
+  animation: status-blink 2.4s var(--ease-standard) infinite;
+}
+
+/* Scan line inside hero system panel ---------------------------------- */
+
+@keyframes scan {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1000%);
+    opacity: 0;
+  }
+}
+
+.sys__scan {
+  animation: scan 7s linear infinite;
+}
+
+/* Connection dash travel ---------------------------------------------- */
+
+@keyframes dash-travel {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.dash-travel {
+  stroke-dasharray: 4 8;
+  animation: dash-travel 1.6s linear infinite;
+}
+
+/* Reduced motion ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal,
+  .reveal-mask > span {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-media {
+    clip-path: none;
+  }
+
+  .arch__line {
+    transform: none;
+  }
+}

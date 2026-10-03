@@ -1,23 +1,26 @@
 # Matrixo
 
-Company profile site for **Matrixo Software Technology PLC** — "Free Your Mind".
+Company profile site for **Matrixo Software Technology PLC** — *Software built for the real world.*
 
-The visual design, copy and content come from `design/Matrixo_Official_Website_50Plus (2).html`,
-ported faithfully to React: same layout, palette, dark/light theme and imagery, with the original
-single-file script rewritten as React state.
+A restrained editorial system: warm paper surfaces, charcoal technical sections, compact
+Inter headings, JetBrains Mono labels and a single brand-green accent used sparingly. No dark-mode
+toggle, no gradients, no floating cards — the grid and the typography carry the design.
 
-- Dark theme by default, light theme via the ◐ toggle (persisted in `localStorage`)
-- Sections: hero → proof bar → capabilities → live work (Penta Learning Hub) → process → about →
-  "is Matrixo a fit?" chooser → CTA → contact form → footer
-- The fit chooser preselects the matching project type in the contact form and scrolls to it
-- The contact form validates locally and shows a "your inquiry is ready" notice (no backend)
+- **Hero** — "Software built for the real world." with a live reference-architecture panel
+  (coordinates, scan line, animated route)
+- **Sections** — Selected work (Oringo, Penta Learning Hub) → Products → Services → dark
+  Engineering section with an animated architecture diagram → Principles → Company → Technology
+  index → Insights → Contact CTA → footer
+- **`#/contact`** — hash route with a full contact form (no backend: submit prepares a pre-filled
+  `mailto:` message plus a copyable summary and the direct phone numbers)
+- Everything is driven by `src/data/site.ts`, so copy and project facts live in one place
 
 ## Stack
 
 - [Vite](https://vite.dev) + [React 19](https://react.dev) + TypeScript
-- Plain CSS: `src/styles/matrixo.css` (the source design's stylesheet) + `src/styles/extra.css`
-  (accessibility additions only: skip link, focus rings, reduced motion, print)
-- oxlint
+- Plain CSS design system (`src/styles/`): tokens → base → layout → motion → components
+- Self-hosted Inter + JetBrains Mono latin subsets — **zero third-party requests at runtime**
+- oxlint; no UI component library; no animation library (CSS + `IntersectionObserver`)
 
 ## Commands
 
@@ -33,35 +36,46 @@ npm run preview  # serve the production build
 
 ```
 src/
-  App.tsx                 composition + theme, menu, scroll-reveal and chooser state
-  index.css               imports the two stylesheets
-  assets.ts               logo URL (works with a relative base)
-  choices.ts              fit-chooser options -> contact form project types
+  App.tsx                 composition + hash routing + scroll-reveal observer
+  router.ts               minimal hash router (#/contact vs in-page anchors)
+  index.css               ordered stylesheet imports
+  data/site.ts            nav, projects, capabilities, principles, technology, contact
+  lib/reveal.ts           reveal delay helper
   styles/
-    matrixo.css           design stylesheet (from the source design)
-    extra.css             accessibility-only additions
+    tokens.css            color, type, space, motion tokens
+    base.css              reset, typography, focus, skip link, print
+    layout.css            container, 12/6/1-col grid, section rhythm, buttons
+    motion.css            reveals, masked headlines, diagram animation, reduced motion
+    nav/hero/work/...     one stylesheet per section
   components/
-    Nav.tsx               fixed nav, theme toggle, mobile menu
-    Hero.tsx              hero + build-system visual
-    Proof.tsx             four-cell proof bar
-    Services.tsx          section header + capability cards
-    Work.tsx              Penta Learning Hub case
-    Process.tsx           four-step process
-    About.tsx             "50+ working systems" lab panel
-    Fit.tsx               fit chooser
-    Cta.tsx               green call-to-action panel
-    Contact.tsx           contact details + inquiry form
-    Footer.tsx            footer
-design/                   original single-file design (source of truth for the look)
+    Navigation.tsx        fixed bar, scroll-spy, full-screen mobile menu
+    Hero.tsx              headline + reference-architecture system panel
+    SelectedWork.tsx      large project rows with SVG interface diagrams
+    Products.tsx          engineering-spec product rows
+    Capabilities.tsx      6-item architectural grid
+    Engineering.tsx       dark section + ArchitectureDiagram
+    Principles.tsx        numbered editorial rows
+    Company.tsx           prose + direct contact panel
+    TechnologyIndex.tsx   10-item technology index
+    Insights.tsx          honest empty state
+    ContactCTA.tsx        "Have something worth building?"
+    ContactPage.tsx       contact form route
+    Footer.tsx            structured footer
+design/                   original single-file design kept for reference
 ```
 
 ## Accessibility
 
-- Semantic landmarks, single `h1`, no heading-level jumps, skip link
-- Visible `:focus-visible` outlines, focus order follows the visual order
-- Mobile menu: `aria-expanded`, closes on link click and Escape key order preserved
-- All animation guarded by `prefers-reduced-motion`; print forces revealed content visible
-- No horizontal overflow from 320px up; pointer targets ≥ 24×24px
+- Semantic landmarks, single `h1`, no heading-level jumps, skip link, labelled form controls
+- Visible `:focus-visible` outlines (accent on paper, light accent on charcoal)
+- Mobile menu: `aria-expanded`, Escape closes, focus moved into the menu, scroll locked
+- All motion guarded by `prefers-reduced-motion`; print forces revealed content visible
+- No horizontal overflow from 320px up; verified with headless Chrome at 320/375/768/1024/1440
+
+## SEO
+
+Document metadata, OpenGraph/Twitter tags, canonical URL, `robots.txt`, `sitemap.xml` and
+Organization JSON-LD in `index.html`.
 
 ## Deployment
 

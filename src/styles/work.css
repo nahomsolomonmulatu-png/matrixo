@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Selected work — large horizontal project rows with interface diagrams
+   ========================================================================== */
+
+.projects {
+  display: flex;
+  flex-direction: column;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--col-gap);
+  align-items: center;
+  padding-block: clamp(2.25rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+}
+
+.project:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.project__body {
+  grid-column: 1 / span 5;
+}
+
+.project__visual {
+  grid-column: 7 / span 6;
+}
+
+.project__category {
+  color: var(--muted);
+}
+
+.project__name {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: var(--s-4);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  transition: color var(--dur) var(--ease);
+}
+
+.project__index {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: color var(--dur) var(--ease);
+}
+
+.project__dash {
+  color: var(--line-strong);
+  font-size: 0.5em;
+  font-weight: 500;
+}
+
+.project__desc {
+  margin-top: var(--s-4);
+  max-width: 44ch;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 0;
+  margin-top: var(--s-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project__tags li + li::before {
+  content: '/';
+  margin: 0 12px;
+  color: var(--line-strong);
+}
+
+.project__action {
+  margin-top: var(--s-5);
+}
+
+/* Visual frame --------------------------------------------------------- */
+
+.project__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+}
+
+.pvis {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 26px 26px;
+  transform: scale(1);
+  transition: transform 0.7s var(--ease);
+}
+
+.pvis__streets path {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  fill: none;
+}
+
+.pvis__zones rect {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.pvis__route {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.pvis__marker circle {
+  fill: var(--paper);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.pvis__ticks path {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.pvis__spine path {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.pvis__modules rect {
+  fill: rgba(255, 255, 255, 0.65);
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.pvis__module--active {
+  fill: var(--accent-tint);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+/* Hover: subtle movement, no floating cards --------------------------- */
+
+.project:hover .pvis {
+  transform: scale(1.035);
+}
+
+.project:hover .project__index {
+  color: var(--accent);
+}
+
+.project:hover .project__frame {
+  border-color: var(--line-strong);
+}
+
+.project:focus-within .project__index {
+  color: var(--accent);
+}
+
+/* Responsive ----------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .project {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    row-gap: var(--s-5);
+  }
+
+  .project__body {
+    grid-column: span 6;
+  }
+
+  .project__visual {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 719px) {
+  .project {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project__body,
+  .project__visual {
+    grid-column: span 1;
+  }
+
+  .project__name {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
