@@ -14,7 +14,7 @@ import ContactPage from './components/ContactPage'
 import Footer from './components/Footer'
 import { useHashRoute } from './router'
 
-const REVEAL_SELECTOR = '.reveal, .reveal-mask, .reveal-media'
+const REVEAL_SELECTOR = '.reveal, .reveal-mask, .reveal-media, .reveal-3d'
 
 function useReveals(route: string) {
   useEffect(() => {
@@ -28,7 +28,7 @@ function useReveals(route: string) {
         entries.forEach((e) => {
           if (e.isIntersecting) show(e.target as HTMLElement)
         }),
-      { threshold: 0.08, rootMargin: '0px 0px -6% 0px' },
+      { threshold: 0.08, rootMargin: '0px' },
     )
     els.forEach((el) => io.observe(el))
 
@@ -38,7 +38,7 @@ function useReveals(route: string) {
       raf = 0
       els.forEach((el) => {
         if (el.classList.contains('is-visible')) return
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) show(el)
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.99) show(el)
       })
     }
     const onScroll = () => {

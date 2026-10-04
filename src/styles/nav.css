@@ -31,11 +31,17 @@
 }
 
 .nav__wordmark {
+  display: inline-block;
   font-size: 0.9375rem;
   font-weight: 650;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink);
+  transition: transform var(--dur) var(--ease);
+}
+
+.nav__brand:hover .nav__wordmark {
+  transform: perspective(320px) rotateX(26deg);
 }
 
 .nav__links {
@@ -130,6 +136,7 @@
 
 .nav__toggle:hover {
   border-color: var(--ink);
+  transform: perspective(320px) rotateX(14deg);
 }
 
 .nav__toggle:active {
@@ -204,13 +211,14 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   opacity: 0;
-  transform: translateY(12px);
+  transform: perspective(700px) rotateX(-64deg) translateZ(-30px);
+  transform-origin: 50% 100%;
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 
 .nav__menu.is-open .nav__menu-links a {
   opacity: 1;
-  transform: none;
+  transform: perspective(700px) rotateX(0deg) translateZ(0);
 }
 
 .nav__menu.is-open .nav__menu-links li:nth-child(1) a { transition-delay: 60ms; }

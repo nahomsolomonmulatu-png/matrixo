@@ -249,10 +249,16 @@
 }
 
 .footer__wordmark {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
   font-weight: 600;
   letter-spacing: 0.14em;
+  transition: transform 0.4s var(--ease);
+}
+
+.footer__brand:hover .footer__wordmark {
+  transform: perspective(500px) rotateX(30deg);
 }
 
 .footer__tagline {

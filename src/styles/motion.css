@@ -6,11 +6,13 @@
 
 /* Scroll reveal -------------------------------------------------------
    Hidden states only apply when JS is available to reveal them
-   (index.html adds the `js` class), so content is never stuck invisible. */
+   (index.html adds the `js` class), so content is never stuck invisible.
+   Elements rise off the "floor": tilted back in 3D, then stand up. */
 
 .js .reveal {
   opacity: 0;
-  transform: translate3d(0, var(--reveal-shift), 0);
+  transform: perspective(1100px) rotateX(34deg) translate3d(0, var(--reveal-shift, 30px), -50px);
+  transform-origin: 50% 100%;
   transition: opacity var(--reveal-dur) var(--ease) var(--reveal-delay, 0ms),
     transform var(--reveal-dur) var(--ease) var(--reveal-delay, 0ms);
   will-change: opacity, transform;
@@ -20,6 +22,30 @@
   opacity: 1;
   transform: none;
   will-change: auto;
+}
+
+/* Word-by-word 3D flip (hero headline) --------------------------------- */
+
+.reveal-3d .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.js .reveal-3d .w > i {
+  display: block;
+  font-style: normal;
+  transform: perspective(700px) translate3d(0, 112%, -140px) rotateX(-72deg);
+  transform-origin: 50% 0;
+  opacity: 0;
+  transition: transform 0.9s var(--ease) var(--wd, 0ms), opacity 0.55s ease var(--wd, 0ms);
+}
+
+.js .reveal-3d.is-visible .w > i {
+  transform: perspective(700px) translate3d(0, 0, 0) rotateX(0deg);
+  opacity: 1;
 }
 
 /* Masked text reveal (headline lines) --------------------------------- */
@@ -34,7 +60,8 @@
 }
 
 .js .reveal-mask > span {
-  transform: translate3d(0, 105%, 0);
+  transform: perspective(900px) translate3d(0, 105%, 0) rotateX(-46deg);
+  transform-origin: 50% 100%;
   transition: transform 0.9s var(--ease) var(--reveal-delay, 0ms);
 }
 
@@ -45,15 +72,19 @@
 /* Media mask (project visuals) ---------------------------------------- */
 
 .reveal-media {
-  transition: clip-path 1s var(--ease) var(--reveal-delay, 0ms);
+  transition: clip-path 1s var(--ease) var(--reveal-delay, 0ms),
+    transform 1s var(--ease) var(--reveal-delay, 0ms);
 }
 
 .js .reveal-media {
   clip-path: inset(0 0 100% 0);
+  transform: perspective(1300px) rotateX(14deg);
+  transform-origin: 50% 0;
 }
 
 .js .reveal-media.is-visible {
   clip-path: inset(0 0 0 0);
+  transform: none;
 }
 
 /* Page transition between routes -------------------------------------- */
@@ -61,7 +92,7 @@
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 12px, 0);
+    transform: perspective(1200px) rotateX(8deg) translate3d(0, 30px, -90px);
   }
   to {
     opacity: 1;
@@ -112,17 +143,17 @@
 
 @keyframes scan {
   0% {
-    transform: translateY(-10%);
+    transform: translateY(0);
     opacity: 0;
   }
-  12% {
-    opacity: 1;
+  10% {
+    opacity: 0.7;
   }
-  88% {
-    opacity: 1;
+  90% {
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(1000%);
+    transform: translateY(100%);
     opacity: 0;
   }
 }
@@ -161,6 +192,7 @@
   }
 
   .js .reveal,
+  .js .reveal-3d .w > i,
   .js .reveal-mask > span {
     opacity: 1;
     transform: none;
@@ -168,9 +200,22 @@
 
   .js .reveal-media {
     clip-path: none;
+    transform: none;
   }
 
   .js .arch__line {
     transform: none;
+  }
+
+  .sys__spin,
+  .sys__dot,
+  .sys__halo,
+  .sys__scan,
+  .hero::before {
+    animation: none !important;
+  }
+
+  .sys__stage {
+    transform: rotateX(44deg);
   }
 }

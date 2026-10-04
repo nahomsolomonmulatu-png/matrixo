@@ -1,8 +1,10 @@
+import { useRef } from 'react'
 import type { Project } from '../data/site'
 import { projects } from '../data/site'
 import Arrow from './Arrow'
 import SectionHeader from './SectionHeader'
 import { revealStyle } from '../lib/reveal'
+import { useTilt } from '../lib/tilt'
 
 function MobilityVisual() {
   return (
@@ -74,6 +76,9 @@ function LearningVisual() {
 }
 
 function ProjectRow({ project, delay }: { project: Project; delay: number }) {
+  const frameRef = useRef<HTMLDivElement>(null)
+  useTilt(frameRef, { max: 5 })
+
   return (
     <article className="project reveal" style={revealStyle(delay)}>
       <div className="project__body">
@@ -105,7 +110,7 @@ function ProjectRow({ project, delay }: { project: Project; delay: number }) {
       </div>
 
       <div className="project__visual reveal-media" style={revealStyle(delay + 120)}>
-        <div className="project__frame">
+        <div className="project__frame" ref={frameRef}>
           {project.visual === 'mobility' ? <MobilityVisual /> : <LearningVisual />}
         </div>
       </div>

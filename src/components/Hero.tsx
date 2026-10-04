@@ -1,6 +1,17 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
 import Arrow from './Arrow'
 import { revealStyle } from '../lib/reveal'
+import { useTilt } from '../lib/tilt'
+
+const HERO_WORDS = ['Software', 'built', 'for', 'the', 'real', 'world.']
+
+const NODES = [
+  { x: 18.5, y: 22 },
+  { x: 46.5, y: 50 },
+  { x: 78, y: 22 },
+  { x: 30, y: 78 },
+  { x: 81.5, y: 78 },
+]
 
 function wrap(v: number) {
   return ((v % 360) + 360) % 360
@@ -12,6 +23,8 @@ function format(v: number) {
 
 function SystemPanel() {
   const [coords, setCoords] = useState({ x: 42.18, y: 91.03 })
+  const sceneRef = useRef<HTMLDivElement>(null)
+  useTilt(sceneRef, { max: 7 })
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -35,46 +48,73 @@ function SystemPanel() {
       </div>
 
       <div className="sys__field">
-        <svg className="sys__svg" viewBox="0 0 400 300" role="presentation" focusable="false">
-          <g className="sys__lane">
-            <path d="M0 66h400M0 150h400M0 234h400" />
-          </g>
+        <div className="sys__scene" ref={sceneRef}>
+          <div className="sys__stage">
+            <div className="sys__spin">
+              <div className="sys__floor sys__floor--far" />
+              <div className="sys__floor sys__floor--near" />
 
-          <g className="sys__node-ring">
-            <circle cx="74" cy="66" r="7" />
-            <circle cx="186" cy="150" r="7" />
-            <circle cx="312" cy="66" r="7" />
-            <circle cx="120" cy="234" r="7" />
-            <circle cx="326" cy="234" r="7" />
-          </g>
+              <svg className="sys__svg" viewBox="0 0 400 300" role="presentation" focusable="false">
+                <g className="sys__lane">
+                  <path d="M0 66h400M0 150h400M0 234h400" />
+                </g>
 
-          <g className="sys__node">
-            <circle cx="74" cy="66" r="3" />
-            <circle cx="186" cy="150" r="3" />
-            <circle cx="312" cy="66" r="3" />
-            <circle cx="120" cy="234" r="3" />
-            <circle cx="326" cy="234" r="3" />
-          </g>
+                <g className="sys__node-ring">
+                  <circle cx="74" cy="66" r="7" />
+                  <circle cx="186" cy="150" r="7" />
+                  <circle cx="312" cy="66" r="7" />
+                  <circle cx="120" cy="234" r="7" />
+                  <circle cx="326" cy="234" r="7" />
+                </g>
 
-          <g className="sys__edge">
-            <path d="M74 66 186 150 326 234" />
-            <path d="M312 66 186 150 120 234" />
-            <path d="M74 66h238" />
-            <path d="M120 234h206" />
-          </g>
+                <g className="sys__node">
+                  <circle cx="74" cy="66" r="3" />
+                  <circle cx="186" cy="150" r="3" />
+                  <circle cx="312" cy="66" r="3" />
+                  <circle cx="120" cy="234" r="3" />
+                  <circle cx="326" cy="234" r="3" />
+                </g>
 
-          <path className="sys__edge sys__edge--live dash-travel" d="M74 66 186 150 326 234" />
+                <g className="sys__edge">
+                  <path d="M74 66 186 150 326 234" />
+                  <path d="M312 66 186 150 120 234" />
+                  <path d="M74 66h238" />
+                  <path d="M120 234h206" />
+                </g>
 
-          <g className="sys__cross" transform="translate(186 150)">
-            <path d="M-16 0h32M0 -16v32" />
-            <circle r="11" />
-          </g>
+                <path
+                  className="sys__edge sys__edge--live dash-travel"
+                  d="M74 66 186 150 326 234"
+                />
 
-          <g className="sys__tick">
-            <path d="M14 26h18M14 26v18" />
-            <path d="M386 274h-18M386 274v-18" />
-          </g>
-        </svg>
+                <g className="sys__cross" transform="translate(186 150)">
+                  <path d="M-16 0h32M0 -16v32" />
+                  <circle r="11" />
+                </g>
+
+                <g className="sys__tick">
+                  <path d="M14 26h18M14 26v18" />
+                  <path d="M386 274h-18M386 274v-18" />
+                </g>
+              </svg>
+
+              {NODES.map((n, i) => (
+                <span
+                  key={`${n.x}-${n.y}`}
+                  className="sys__dot"
+                  style={
+                    {
+                      left: `${n.x}%`,
+                      top: `${n.y}%`,
+                      '--i': i,
+                    } as CSSProperties
+                  }
+                />
+              ))}
+              <span className="sys__halo" style={{ left: '46.5%', top: '50%' }} />
+            </div>
+          </div>
+        </div>
 
         <div className="sys__scan" aria-hidden="true" />
 
@@ -102,8 +142,15 @@ export default function Hero() {
             Matrixo — Software engineering · Addis Ababa
           </p>
 
-          <h1 id="hero-title" className="hero__title reveal-mask" style={revealStyle(60)}>
-            <span>Software built for the real world.</span>
+          <h1 id="hero-title" className="hero__title reveal-3d" style={revealStyle(40)}>
+            {HERO_WORDS.map((word, i) => (
+              <Fragment key={word}>
+                <span className="w">
+                  <i style={{ '--wd': `${140 + i * 70}ms` } as CSSProperties}>{word}</i>
+                </span>
+                {i < HERO_WORDS.length - 1 ? ' ' : ''}
+              </Fragment>
+            ))}
           </h1>
 
           <p className="lead hero__support reveal" style={revealStyle(200)}>

@@ -75,7 +75,8 @@
 
 .js .arch__row {
   opacity: 0;
-  transform: translateY(14px);
+  transform: perspective(800px) rotateX(-40deg) translate3d(0, 22px, -60px);
+  transform-origin: 50% 0;
 }
 
 .arch.is-visible .arch__row {
