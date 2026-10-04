@@ -4,10 +4,10 @@
 @import './styles/layout.css';
 @import './styles/motion.css';
 
+@import './styles/stage.css';
 @import './styles/nav.css';
 @import './styles/hero.css';
-@import './styles/work.css';
-@import './styles/capabilities.css';
-@import './styles/engineering.css';
-@import './styles/editorial.css';
+@import './styles/story.css';
+@import './styles/services.css';
+@import './styles/footer.css';
 @import './styles/contact.css';

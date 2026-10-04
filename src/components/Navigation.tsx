@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import { primaryNav, company } from '../data/site'
+import { company, siteNav } from '../data/site'
+import MatrixoMark from './MatrixoMark'
 
-export default function Navigation({ route }: { route: string }) {
+export default function Navigation() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (route !== '/') return
-    const order = primaryNav.map((i) => i.href.slice(1))
+    const order = siteNav.map((i) => i.href.slice(1))
     const sections = order
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el))
@@ -28,7 +29,14 @@ export default function Navigation({ route }: { route: string }) {
     )
     sections.forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [route])
+  }, [])
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -54,22 +62,22 @@ export default function Navigation({ route }: { route: string }) {
   }, [open])
 
   const close = () => setOpen(false)
-  const activeId = route === '/' ? active : null
 
   return (
-    <header className="nav">
+    <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container nav__inner">
-        <a className="nav__brand" href="#/" aria-label="Matrixo — home" onClick={close}>
-          <span className="nav__wordmark">Matrixo</span>
+        <a className="nav__brand" href="#main" aria-label="Matrixo — back to top" onClick={close}>
+          <MatrixoMark size={20} />
+          <span className="nav__name">MATRIXO</span>
         </a>
 
         <nav className="nav__links" aria-label="Primary">
-          {primaryNav.map((item) => (
+          {siteNav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={`nav__link${activeId === item.href.slice(1) ? ' is-active' : ''}`}
-              aria-current={activeId === item.href.slice(1) ? 'location' : undefined}
+              className={`nav__link${active === item.href.slice(1) ? ' is-active' : ''}`}
+              aria-current={active === item.href.slice(1) ? 'location' : undefined}
             >
               {item.label}
             </a>
@@ -77,13 +85,6 @@ export default function Navigation({ route }: { route: string }) {
         </nav>
 
         <div className="nav__end">
-          <a
-            className={`nav__link nav__contact${route === '/contact' ? ' is-active' : ''}`}
-            href="#/contact"
-            onClick={close}
-          >
-            Contact
-          </a>
           <button
             ref={toggleRef}
             type="button"
@@ -103,22 +104,15 @@ export default function Navigation({ route }: { route: string }) {
 
       <div className={`nav__menu${open ? ' is-open' : ''}`} id="nav-menu" ref={menuRef}>
         <div className="container">
-          <nav aria-label="Mobile">
+          <nav aria-label="Menu">
             <ul className="nav__menu-links">
-              {primaryNav.map((item) => (
+              {siteNav.map((item) => (
                 <li key={item.href}>
                   <a href={item.href} onClick={close}>
                     {item.label}
-                    <span aria-hidden="true">↘</span>
                   </a>
                 </li>
               ))}
-              <li>
-                <a href="#/contact" onClick={close} className="is-contact">
-                  Contact
-                  <span aria-hidden="true">↘</span>
-                </a>
-              </li>
             </ul>
           </nav>
           <div className="nav__menu-foot">

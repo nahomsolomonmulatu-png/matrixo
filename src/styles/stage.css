@@ -1,0 +1,33 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.stage-fallback {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: min(46vw, 560px);
+  display: grid;
+  place-items: center;
+  padding-right: 5vw;
+  pointer-events: none;
+}
+
+.stage-fallback svg {
+  width: 100%;
+  height: auto;
+  max-height: 76vh;
+}
+
+@media (max-width: 899px) {
+  .stage-fallback {
+    inset: 0;
+    width: min(78vw, 420px);
+    margin-inline: auto;
+    padding: calc(var(--nav-h) + 6vh) 0 0;
+    place-items: start center;
+  }
+}

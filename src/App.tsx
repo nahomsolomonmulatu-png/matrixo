@@ -1,22 +1,19 @@
 import { useEffect } from 'react'
 import Navigation from './components/Navigation'
-import Hero from './components/Hero'
-import SelectedWork from './components/SelectedWork'
-import Products from './components/Products'
-import Capabilities from './components/Capabilities'
-import Engineering from './components/Engineering'
-import Principles from './components/Principles'
-import Company from './components/Company'
-import TechnologyIndex from './components/TechnologyIndex'
-import Insights from './components/Insights'
-import ContactCTA from './components/ContactCTA'
-import ContactPage from './components/ContactPage'
+import Hero from './sections/Hero'
+import Story from './sections/Story'
+import BrandMoment from './sections/BrandMoment'
+import Services from './sections/Services'
+import About from './sections/About'
+import Contact from './sections/Contact'
 import Footer from './components/Footer'
-import { useHashRoute } from './router'
+import Stage from './three/Stage'
+import { startThemeController } from './lib/theme'
+import { initScrollDrive } from './three/scroll'
 
-const REVEAL_SELECTOR = '.reveal, .reveal-mask, .reveal-media, .reveal-3d'
+const REVEAL_SELECTOR = '.reveal'
 
-function useReveals(route: string) {
+function useReveals() {
   useEffect(() => {
     const els = [...document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR)]
     const show = (el: HTMLElement) => {
@@ -32,7 +29,6 @@ function useReveals(route: string) {
     )
     els.forEach((el) => io.observe(el))
 
-    // Safety net: fast scrolling can skip the intersecting frame, so sweep on scroll.
     let raf = 0
     const sweep = () => {
       raf = 0
@@ -52,50 +48,28 @@ function useReveals(route: string) {
       window.removeEventListener('scroll', onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [route])
+  }, [])
 }
 
 export default function App() {
-  const route = useHashRoute()
-
-  useReveals(route)
-
-  // Route change: reset scroll position to the top of the page.
-  useEffect(() => {
-    if (route === '/') {
-      if (window.location.hash === '#/' || window.location.hash === '') {
-        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-      }
-      return
-    }
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-  }, [route])
-
-  const isHome = route === '/'
+  useReveals()
+  useEffect(() => startThemeController(), [])
+  useEffect(() => initScrollDrive(), [])
 
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <Navigation route={route} />
-      <main id="main" className={isHome ? undefined : 'page'} key={route}>
-        {isHome ? (
-          <>
-            <Hero />
-            <SelectedWork />
-            <Products />
-            <Capabilities />
-            <Engineering />
-            <Principles />
-            <Company />
-            <TechnologyIndex />
-            <Insights />
-            <ContactCTA />
-          </>
-        ) : (
-          <ContactPage />
-        )}
+      <Stage />
+      <Navigation />
+      <main id="main">
+        <Hero />
+        <Story />
+        <BrandMoment />
+        <Services />
+        <About />
+        <Contact />
       </main>
       <Footer />
     </>

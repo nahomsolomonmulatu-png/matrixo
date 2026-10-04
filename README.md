@@ -2,25 +2,35 @@
 
 Company profile site for **Matrixo Software Technology PLC** — *Software built for the real world.*
 
-A restrained editorial system: warm paper surfaces, charcoal technical sections, compact
-Inter headings, JetBrains Mono labels and a single brand-green accent used sparingly. No dark-mode
-toggle, no gradients, no floating cards — the grid and the typography carry the design.
+A single-page, 3D-driven company site: one fixed WebGL canvas behind the whole page, a
+procedural geometric Matrixo avatar, and a four-step scroll story that disassembles the avatar
+into an architecture layer stack, a network sphere, and a rebuilt final frame. Warm-stone
+light theme, near-black dark sections, a single deep-green accent (`#0f7b35`). No gradients,
+no glassmorphism, no card grids — typography, hairlines and the scene carry the design.
 
-- **Hero** — "Software built for the real world." with a live reference-architecture panel
-  (coordinates, scan line, animated route)
-- **Sections** — Selected work (Oringo, Penta Learning Hub) → Products → Services → dark
-  Engineering section with an animated architecture diagram → Principles → Company → Technology
-  index → Insights → Contact CTA → footer
-- **`#/contact`** — hash route with a full contact form (no backend: submit prepares a pre-filled
-  `mailto:` message plus a copyable summary and the direct phone numbers)
-- Everything is driven by `src/data/site.ts`, so copy and project facts live in one place
+- **Hero** — headline left, live 3D avatar right, quiet mono meta row at the bottom
+- **Story** (`#story`) — four scroll steps: assemble → layers → network → rebuild
+- **Brand moment** — full-bleed dark frame with the mega wordmark
+- **Capabilities** (`#capabilities`) — services 01–06 with the orbiting 3D scene
+- **About / Contact / Footer** — one page, section anchors, theme flips along the scroll
+- All copy lives in `src/data/site.ts`
 
 ## Stack
 
 - [Vite](https://vite.dev) + [React 19](https://react.dev) + TypeScript
-- Plain CSS design system (`src/styles/`): tokens → base → layout → motion → components
-- Self-hosted Inter + JetBrains Mono latin subsets — **zero third-party requests at runtime**
-- oxlint; no UI component library; no animation library (CSS + `IntersectionObserver`)
+- [Three.js](https://threejs.org) + [React Three Fiber](https://r3f.docs.pmnd.rs) + [drei](https://drei.pmnd.rs) + [GSAP ScrollTrigger](https://gsap.com/scrolltrigger/)
+- Plain CSS design system (`src/styles/`): tokens → base → layout → motion → per-section sheets
+- Self-hosted Inter + JetBrains Mono + Jost latin subsets — **zero third-party requests at runtime**
+- oxlint; no UI component library
+
+## Performance & fallbacks
+
+- Scene is a `React.lazy` chunk mounted after `requestIdleCallback`; initial bundle ≈ 75 kB gz
+- DPR capped (1.75 desktop / 1.25 mobile); render loop pauses on `document.hidden`
+- No WebGL → static SVG fallback (`StaticArt`); a runtime scene error → same fallback
+- `?no3d` renders the HTML page without the canvas (used by layout test suites)
+- `prefers-reduced-motion` disables breathing, pulses, head-tracking and entrance transforms;
+  scroll-driven scene changes still work and snap
 
 ## Commands
 
@@ -36,41 +46,33 @@ npm run preview  # serve the production build
 
 ```
 src/
-  App.tsx                 composition + hash routing + scroll-reveal observer
-  router.ts               minimal hash router (#/contact vs in-page anchors)
-  index.css               ordered stylesheet imports
-  data/site.ts            nav, projects, capabilities, principles, technology, contact
-  lib/reveal.ts           reveal delay helper
-  styles/
-    tokens.css            color, type, space, motion tokens
-    base.css              reset, typography, focus, skip link, print
-    layout.css            container, 12/6/1-col grid, section rhythm, buttons
-    motion.css            reveals, masked headlines, diagram animation, reduced motion
-    nav/hero/work/...     one stylesheet per section
+  App.tsx                 single-page composition + reveal observer + theme/scroll drive
+  data/site.ts            all page copy (nav, story, services, about, contact, footer)
+  lib/
+    theme.ts              scroll-driven theme controller (CSS vars + scene fog)
+    reveal.ts             reveal delay helper
+  sections/
+    Hero / Story / BrandMoment / Services / About / Contact
+    StaticArt.tsx         no-WebGL fallback illustration
   components/
     Navigation.tsx        fixed bar, scroll-spy, full-screen mobile menu
-    Hero.tsx              headline + reference-architecture system panel
-    SelectedWork.tsx      large project rows with SVG interface diagrams
-    Products.tsx          engineering-spec product rows
-    Capabilities.tsx      6-item architectural grid
-    Engineering.tsx       dark section + ArchitectureDiagram
-    Principles.tsx        numbered editorial rows
-    Company.tsx           prose + direct contact panel
-    TechnologyIndex.tsx   10-item technology index
-    Insights.tsx          honest empty state
-    ContactCTA.tsx        "Have something worth building?"
-    ContactPage.tsx       contact form route
     Footer.tsx            structured footer
-design/                   original single-file design kept for reference
+    MatrixoMark.tsx       the shared M symbol (header, favicon, avatar chest)
+  three/
+    Stage.tsx             WebGL gate, idle-mount, error boundary
+    Scene.tsx             canvas, lights, frameloop control
+    Avatar / Layers / Network / Orbit / Rig    scene objects + camera choreography
+    store.ts, materials.ts, scroll.ts          mutable store, shared materials, GSAP drive
+  styles/                 tokens, base, layout, motion + one sheet per section
 ```
 
 ## Accessibility
 
-- Semantic landmarks, single `h1`, no heading-level jumps, skip link, labelled form controls
-- Visible `:focus-visible` outlines (accent on paper, light accent on charcoal)
-- Mobile menu: `aria-expanded`, Escape closes, focus moved into the menu, scroll locked
-- All motion guarded by `prefers-reduced-motion`; print forces revealed content visible
-- No horizontal overflow from 320px up; verified with headless Chrome at 320/375/768/1024/1440
+- Semantic landmarks, single `h1`, skip link, labelled controls, no heading-level jumps
+- Visible `:focus-visible` outlines; mobile menu traps focus, Escape closes, scroll locks
+- Section themes flip background/foreground via CSS variables — contrast verified (7:1+)
+- All non-scroll motion guarded by `prefers-reduced-motion`
+- No horizontal overflow from 320px up; verified with headless Chrome at 320–1440
 
 ## SEO
 

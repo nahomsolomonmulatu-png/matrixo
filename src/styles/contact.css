@@ -1,365 +1,66 @@
-/* ==========================================================================
-   Contact CTA, contact page, footer
-   ========================================================================== */
+.about {
+  padding-block: var(--section-y);
+  position: relative;
+}
 
-/* CTA ------------------------------------------------------------------ */
-
-.cta {
+.about__inner {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--s-5);
-  padding-block: clamp(1rem, 3vw, 2rem);
+  border-top: 1px solid var(--hair);
+  padding-top: var(--s-7);
 }
 
-.cta__title {
-  font-size: clamp(2.25rem, 1.5rem + 3.4vw, 4rem);
-  max-width: 16ch;
+.about__statement {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.2rem + 3.5vw, 3.75rem);
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+  max-width: 26ch;
 }
 
-.cta__sub {
-  font-size: var(--fs-lead);
-  color: var(--on-dark-muted);
+.about__body {
+  max-width: 58ch;
+  color: var(--fg-2);
+  line-height: 1.7;
 }
-
-.cta__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-5);
-  margin-top: var(--s-3);
-}
-
-.cta__phone {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-4);
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.06em;
-  color: var(--on-dark-muted);
-}
-
-.cta__phone a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.cta__phone a:hover {
-  color: var(--accent-on-dark);
-}
-
-.btn--on-dark {
-  background: var(--on-dark);
-  border-color: var(--on-dark);
-  color: var(--charcoal);
-}
-
-.btn--on-dark:hover {
-  background: #fff;
-  border-color: #fff;
-}
-
-/* Contact page ---------------------------------------------------------- */
 
 .contact {
+  min-height: 100svh;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--col-gap);
-  align-items: start;
+  align-content: center;
+  padding-block: var(--section-y);
+  position: relative;
 }
 
-.contact__form {
-  grid-column: 1 / span 7;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-5) var(--col-gap);
-}
-
-.contact__notice {
-  grid-column: 1 / span 7;
-  margin-top: var(--s-5);
-  padding: var(--s-5);
-  border: 1px solid var(--accent);
-  background: var(--accent-tint);
+.contact__inner {
   display: flex;
   flex-direction: column;
-  gap: var(--s-3);
+  align-items: flex-start;
+  gap: var(--s-5);
+  max-width: 44rem;
 }
 
-.contact__notice p:not(.label) {
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-  line-height: 1.6;
-}
-
-.contact__summary {
-  margin: 0;
-  padding: var(--s-4);
-  background: var(--paper);
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  line-height: 1.6;
-  white-space: pre-wrap;
-  overflow-x: auto;
-}
-
-.contact__notice-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.contact__side {
-  grid-column: 9 / span 4;
-  padding: var(--s-5);
-  border: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-}
-
-.contact__phones {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.contact__phones a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.contact__phones a:hover {
-  color: var(--accent);
-}
-
-.contact__address {
-  font-size: var(--fs-sm);
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.contact__side-label {
-  margin-top: var(--s-3);
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--line);
-}
-
-.field--wide {
-  grid-column: 1 / -1;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.field__label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.field__optional {
-  color: var(--faint);
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-
-.field__input {
-  min-height: 48px;
-  padding: 12px 14px;
-  background: var(--paper-raised);
-  border: 1px solid var(--field-line);
-  border-radius: 0;
-  font-size: var(--fs-sm);
-  transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
-}
-
-.field__input:hover {
-  border-color: var(--muted);
-}
-
-.field__input:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: #fff;
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-.field__input::placeholder {
-  color: var(--faint);
-}
-
-.field__textarea {
-  min-height: 148px;
-  resize: vertical;
-  line-height: 1.6;
-}
-
-.field__select {
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
-    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-  background-position: calc(100% - 20px) 21px, calc(100% - 14px) 21px;
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-}
-
-.contact__submit {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-4);
-}
-
-.contact__hint {
-  flex: 1 1 260px;
-  font-size: var(--fs-xs);
-  color: var(--faint);
-  line-height: 1.55;
-  max-width: 44ch;
-}
-
-/* Footer ---------------------------------------------------------------- */
-
-.footer {
-  background: var(--charcoal);
-  color: var(--on-dark);
-  padding-top: clamp(2.5rem, 4.5vw, 4rem);
-  padding-bottom: var(--s-6);
-}
-
-.footer__top {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
-  gap: var(--col-gap);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
-}
-
-.footer__wordmark {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+.contact__headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
   font-weight: 600;
-  letter-spacing: 0.14em;
-  transition: transform 0.4s var(--ease);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
 }
 
-.footer__brand:hover .footer__wordmark {
-  transform: perspective(500px) rotateX(30deg);
-}
-
-.footer__tagline {
-  margin-top: var(--s-3);
-  font-size: var(--fs-sm);
-  color: var(--on-dark-muted);
-}
-
-.footer__address {
-  margin-top: var(--s-2);
-  font-size: var(--fs-xs);
-  color: var(--on-dark-faint);
-  max-width: 32ch;
-}
-
-.footer__col-title {
-  color: var(--on-dark-faint);
-}
-
-.footer__col ul {
+.contact__meta {
+  width: 100%;
   margin-top: var(--s-4);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hair);
 }
 
-.footer__col a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  font-size: var(--fs-sm);
-  color: var(--on-dark-muted);
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.footer__col a:hover {
-  color: var(--on-dark);
-}
-
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--line-dark);
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--on-dark-faint);
-}
-
-/* Responsive ------------------------------------------------------------ */
-
-@media (max-width: 1023px) {
+@media (max-width: 899px) {
   .contact {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    row-gap: var(--s-6);
-  }
-
-  .contact__form,
-  .contact__notice,
-  .contact__side {
-    grid-column: span 6;
-  }
-
-  .footer__top {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: var(--s-6);
-  }
-
-  .footer__brand {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 719px) {
-  .contact {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .field__input {
-    font-size: 16px;
-  }
-
-  .contact__form,
-  .contact__notice,
-  .contact__side {
-    grid-column: span 1;
-  }
-
-  .contact__form {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .cta__title {
-    max-width: 100%;
-  }
-
-  .footer__top {
-    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+    padding-block: clamp(5rem, 16vh, 8rem);
   }
 }

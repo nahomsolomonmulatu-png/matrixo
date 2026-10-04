@@ -13,7 +13,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
   scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) var(--paper);
+  scrollbar-color: var(--hair) var(--bg);
 }
 
 * {
@@ -22,8 +22,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans);
   font-size: var(--fs-body);
   line-height: 1.6;
@@ -38,6 +38,7 @@ h2,
 h3,
 h4 {
   margin: 0;
+  font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.022em;
   line-height: 1.08;
@@ -105,10 +106,6 @@ hr {
   outline-offset: 3px;
 }
 
-.on-dark :focus-visible {
-  outline-color: var(--accent-on-dark);
-}
-
 /* Typography helpers ------------------------------------------------- */
 
 .label {
@@ -117,45 +114,13 @@ hr {
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
-}
-
-.label--accent {
-  color: var(--accent);
-}
-
-.on-dark .label {
-  color: var(--on-dark-muted);
-}
-
-.on-dark .label--accent {
-  color: var(--accent-on-dark);
+  color: var(--fg-2);
 }
 
 .lead {
   font-size: var(--fs-lead);
   line-height: 1.55;
-  color: var(--ink-2);
-}
-
-.on-dark .lead {
-  color: var(--on-dark-muted);
-}
-
-.muted {
-  color: var(--muted);
-}
-
-.on-dark .muted {
-  color: var(--on-dark-muted);
-}
-
-.measure {
-  max-width: 62ch;
-}
-
-.measure-sm {
-  max-width: 46ch;
+  color: var(--fg-2);
 }
 
 .sr-only {
@@ -178,8 +143,8 @@ hr {
   left: 0;
   z-index: 200;
   padding: 12px 18px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--fg);
+  color: var(--bg);
   font-size: var(--fs-sm);
   font-weight: 600;
   transform: translateY(-120%);

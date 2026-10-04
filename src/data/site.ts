@@ -1,186 +1,5 @@
 export type NavItem = { label: string; href: string }
 
-export const primaryNav: NavItem[] = [
-  { label: 'Work', href: '#work' },
-  { label: 'Products', href: '#products' },
-  { label: 'Services', href: '#services' },
-  { label: 'Company', href: '#company' },
-  { label: 'Insights', href: '#insights' },
-]
-
-export const footerNav: { title: string; items: NavItem[] }[] = [
-  {
-    title: 'Navigation',
-    items: [
-      { label: 'Work', href: '#work' },
-      { label: 'Products', href: '#products' },
-      { label: 'Services', href: '#services' },
-      { label: 'Company', href: '#company' },
-      { label: 'Contact', href: '#/contact' },
-    ],
-  },
-  {
-    title: 'Social',
-    items: [
-      { label: 'GitHub', href: 'https://github.com/nahomsolomonmulatu-png' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    ],
-  },
-  {
-    title: 'Legal',
-    items: [
-      { label: 'Privacy', href: '#privacy' },
-      { label: 'Terms', href: '#terms' },
-    ],
-  },
-]
-
-export type Project = {
-  index: string
-  name: string
-  category: string
-  description: string
-  tags: string[]
-  action: { label: string; href: string; external?: boolean }
-  visual: 'mobility' | 'learning'
-}
-
-export const projects: Project[] = [
-  {
-    index: '01',
-    name: 'Oringo',
-    category: 'Mobility Infrastructure',
-    description:
-      'Ride-hailing and transportation infrastructure designed around the realities of emerging markets.',
-    tags: ['Mobile', 'Dispatch', 'Payments', 'Operations'],
-    action: { label: 'Request case study', href: '#/contact' },
-    visual: 'mobility',
-  },
-  {
-    index: '02',
-    name: 'Penta Learning Hub',
-    category: 'Education Technology',
-    description:
-      'A digital learning platform connecting students, teachers, courses and educational operations.',
-    tags: ['Web', 'Learning', 'Administration'],
-    action: { label: 'View project', href: 'https://pentalearninghub.com.et', external: true },
-    visual: 'learning',
-  },
-]
-
-export type Capability = { index: string; title: string; body: string }
-
-export const capabilities: Capability[] = [
-  {
-    index: '01',
-    title: 'Digital Products',
-    body: 'Web platforms, mobile applications and internal business systems.',
-  },
-  {
-    index: '02',
-    title: 'Software Infrastructure',
-    body: 'APIs, backend systems, databases, authentication and distributed services.',
-  },
-  {
-    index: '03',
-    title: 'Mobile Engineering',
-    body: 'Production Android and cross-platform applications.',
-  },
-  {
-    index: '04',
-    title: 'Platform Engineering',
-    body: 'Operational platforms connecting customers, employees and business infrastructure.',
-  },
-  {
-    index: '05',
-    title: 'AI Systems',
-    body: 'Practical AI integrations and intelligent software systems.',
-  },
-  {
-    index: '06',
-    title: 'Security',
-    body: 'Security-conscious architecture, authentication and infrastructure engineering.',
-  },
-]
-
-export type ArchLayer = { label: string; detail: string }
-
-export const architecture: ArchLayer[] = [
-  { label: 'Clients', detail: 'Web, mobile, internal tooling' },
-  { label: 'Applications', detail: 'Interfaces, business logic, state' },
-  { label: 'API Gateway', detail: 'Authentication, routing, limits' },
-  { label: 'Services', detail: 'Domain services, queues, workers' },
-  { label: 'Data', detail: 'PostgreSQL, MySQL, object storage' },
-  { label: 'Infrastructure', detail: 'Docker, cloud, delivery, telemetry' },
-]
-
-export type Principle = { index: string; title: string; body: string }
-
-export const principles: Principle[] = [
-  {
-    index: '01',
-    title: 'Build for reality.',
-    body: 'Technology has to survive real users, unreliable networks, operational complexity and scale.',
-  },
-  {
-    index: '02',
-    title: 'Systems before decoration.',
-    body: 'Good interfaces matter, but reliable architecture comes first.',
-  },
-  {
-    index: '03',
-    title: 'Own the details.',
-    body: 'Performance, accessibility, security and maintainability are part of the product.',
-  },
-  {
-    index: '04',
-    title: 'Design for change.',
-    body: 'Software should be capable of evolving without being rebuilt every year.',
-  },
-]
-
-export type ProductRow = { index: string; name: string; status: string; body: string; href?: string }
-
-export const products: ProductRow[] = [
-  {
-    index: '01',
-    name: 'Penta Learning Hub',
-    status: 'Live',
-    body: 'Digital learning platform for students, teachers, courses and administration.',
-    href: 'https://pentalearninghub.com.et',
-  },
-  {
-    index: '02',
-    name: 'Business systems',
-    status: '50+ built',
-    body: 'Internal platforms for operations, workflows and reporting — built for a single organisation and kept private.',
-  },
-]
-
-export type TechItem = { index: string; name: string; domain: string }
-
-export const technologies: TechItem[] = [
-  { index: 'T01', name: 'React', domain: 'Interface' },
-  { index: 'T02', name: 'Node.js', domain: 'Services' },
-  { index: 'T03', name: 'TypeScript', domain: 'Language' },
-  { index: 'T04', name: 'Flutter', domain: 'Mobile' },
-  { index: 'T05', name: 'MySQL', domain: 'Data' },
-  { index: 'T06', name: 'PostgreSQL', domain: 'Data' },
-  { index: 'T07', name: 'Docker', domain: 'Runtime' },
-  { index: 'T08', name: 'Cloud Infrastructure', domain: 'Platform' },
-  { index: 'T09', name: 'REST APIs', domain: 'Integration' },
-  { index: 'T10', name: 'WebSockets', domain: 'Realtime' },
-]
-
-export const projectTypes = [
-  'New software product',
-  'Business management system',
-  'Web platform',
-  'Mobile application',
-  'Improve existing software',
-  'Not sure yet',
-]
-
 export const company = {
   name: 'Matrixo Software Technology PLC',
   shortName: 'Matrixo',
@@ -192,4 +11,104 @@ export const company = {
     { label: '+251 976 11 56 02', href: 'tel:+251976115602' },
   ],
   site: 'https://nahomsolomonmulatu-png.github.io/matrixo/',
+}
+
+export const siteNav: NavItem[] = [
+  { label: 'Work', href: '#story' },
+  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Company', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+]
+
+export const siteSocial: NavItem[] = [
+  { label: 'GitHub', href: 'https://github.com/nahomsolomonmulatu-png' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+]
+
+export const heroCopy = {
+  index: 'MATRIXO / 001',
+  headline: ['We engineer', 'digital systems.'],
+  lead: 'Software, platforms and infrastructure designed for the real world.',
+  cta: { label: 'Explore Matrixo', href: '#story' },
+}
+
+export type StoryStep = {
+  id: string
+  label: string
+  title: string
+  body?: string
+  items?: string[]
+}
+
+export const storySteps: StoryStep[] = [
+  {
+    id: 'story-01',
+    label: 'SYSTEM / 01',
+    title: 'Ideas become systems.',
+    body: 'Every product begins as an idea. We give it structure before we give it code.',
+  },
+  {
+    id: 'story-02',
+    label: 'SYSTEM / 02',
+    title: 'Structure before surface.',
+    body: 'We take the product apart into its working layers.',
+    items: ['Interface', 'Application', 'Services', 'Data', 'Infrastructure'],
+  },
+  {
+    id: 'story-03',
+    label: 'SYSTEM / 03',
+    title: 'Then the layers connect.',
+    body: 'One architecture running across every surface.',
+    items: ['Web', 'Mobile', 'Backend', 'Cloud', 'Security', 'AI'],
+  },
+  {
+    id: 'story-04',
+    label: 'SYSTEM / 04',
+    title: 'One system.\nMany layers.\nBuilt together.',
+    items: [
+      'Software Engineering',
+      'Web Platforms',
+      'Mobile Applications',
+      'Backend Systems',
+      'Cloud Infrastructure',
+      'AI Systems',
+      'Security Engineering',
+    ],
+  },
+]
+
+export const brandMoment = {
+  wordmark: 'MATRIXO',
+  line: 'Engineering technology that lasts.',
+}
+
+export type Service = { index: string; title: string; line: string }
+
+export const services: Service[] = [
+  { index: '01', title: 'Software Engineering', line: 'The discipline behind everything we ship.' },
+  { index: '02', title: 'Web', line: 'Platforms and interfaces for the browser.' },
+  { index: '03', title: 'Mobile', line: 'Applications that live in people\u2019s hands.' },
+  { index: '04', title: 'Systems', line: 'Backends, data and the machinery between.' },
+  { index: '05', title: 'AI', line: 'Models put to work inside real products.' },
+  { index: '06', title: 'Security', line: 'Boundaries, identity and defence in depth.' },
+]
+
+export const aboutCopy = {
+  label: 'COMPANY / MATRIXO',
+  statement: 'Technology should feel simple because the engineering behind it isn\u2019t.',
+  body: 'Matrixo is a software engineering company in Addis Ababa. We design and build digital products, platforms and the infrastructure beneath them \u2014 systems made to survive real users, real operations and real scale. Small team, deep ownership, long horizon.',
+}
+
+export const contactCopy = {
+  label: 'CONTACT / 2026',
+  headline: 'Let\u2019s build something real.',
+  cta: {
+    label: 'Start a conversation',
+    href: 'mailto:info@matrixo.et?subject=Project%20enquiry%20%E2%80%94%20Matrixo',
+  },
+}
+
+export const footerCopy = {
+  line: 'Engineering digital systems.',
+  legal: '\u00a9 Matrixo',
 }
